@@ -13,8 +13,8 @@ const userSchema = new Schema(
     },
     name: String,
     profile_image: String,
-    age: Number,
-    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
+    recipes: [{type: Schema.Types.ObjectId, ref: 'Recipe'}],
+    shopping_list_created: [{type: Schema.Types.ObjectId, ref: 'ShoppingList'}],
   },
   {
     timeseries: true,

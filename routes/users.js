@@ -6,7 +6,7 @@ const User = require('../models/User.model');
 router.get('/profile/:userId', (req, res, next) => {
 
   User.findById(req.params.userId)
-    .populate('posts')
+    .populate('recipes')
 
     .then((foundUser) => {
       res.json(foundUser)
