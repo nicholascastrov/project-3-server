@@ -12,6 +12,7 @@ var cors = require('cors');
 var usersRouter = require('./routes/users');
 var recipesRouter = require('./routes/recipes')
 var authRouter = require('./routes/auth')
+var listRouter = require('./routes/shoppingList')
 
 var app = express();
 
@@ -29,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
-  
+
 cors()
 
 );
@@ -53,6 +54,7 @@ cors()
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/recipes', recipesRouter)
+app.use('/list', listRouter)
 
 
 // catch 404 and forward to error handler

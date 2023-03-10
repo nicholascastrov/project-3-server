@@ -60,6 +60,8 @@ router.post("/login", (req, res, next) => {
   }
 
   User.findOne({ email: req.body.email })
+    .populate('shopping_list_created')
+    .populate('recipes')
     .then((foundUser) => {
       if (!foundUser) {
         return res
@@ -103,7 +105,16 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/verify", isAuthenticated, (req, res) => {
-  return res.status(200).json(req.user);
+  User.findById(req.user._id)
+  .populate('shopping_list_created')
+  .populate('recipes')
+  .then((foundUser) => {
+    res.status(201).json(foundUser)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
 });
 
 module.exports = router;

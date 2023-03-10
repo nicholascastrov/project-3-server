@@ -3,6 +3,7 @@ var router = express.Router();
 
 const User = require("../models/User.model");
 const Recipe = require("../models/Recipe.model");
+const isAuthenticated = require("../middleware/isAuthenticated");
 
 router.get("/user-recipes", (req, res, next) => {
   Recipe.find()
@@ -17,6 +18,7 @@ router.get("/user-recipes", (req, res, next) => {
 
 router.get("/user-recipe-details/:recipeId", (req, res, next) => {
   Recipe.findById(req.params.recipeId)
+  .populate('author')
     .then((foundRecipe) => {
       console.log("HHHHHEEELLLOOO", req.params.recipeId);
       res.json(foundRecipe);
@@ -61,7 +63,8 @@ router.post("/add-recipe/:userId", (req, res, next) => {
     directions: newestDirections,
   };
 
-  Recipe.create(newRecipe).then((createdRecipe) => {
+  Recipe.create(newRecipe)
+  .then((createdRecipe) => {
     User.findByIdAndUpdate(
       req.params.userId,
       {

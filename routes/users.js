@@ -8,8 +8,9 @@ router.get("/profile/:userId", (req, res, next) => {
   const userId = req.params.userId;
   User.findById(userId)
     .populate('recipes')
+    .populate('shopping_list_created')
     .then((user) => {
-      res.json(user.recipes);
+      return res.json(user);
     })
     .catch((err) => {
       console.log(err);

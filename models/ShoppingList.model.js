@@ -2,11 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const shoppingListSchema = new Schema(
   {
-    title: String,
-    author: String,
-    image: String,
-    ingredients: [String],
-
+    ingredients: [Object],
   },
   {
     timeseries: true,
